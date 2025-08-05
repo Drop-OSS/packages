@@ -1,0 +1,6 @@
+[submodule "aur-app"]
+	path = aur-app
+	url = https://aur.archlinux.org/drop-oss-app.git
+[submodule "aur-app-bin"]
+	path = aur-app-bin
+	url = https://aur.archlinux.org/drop-oss-app-bin.git
