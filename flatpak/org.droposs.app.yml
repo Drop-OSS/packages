@@ -1,0 +1,51 @@
+id: org.droposs.app
+
+runtime: org.gnome.Platform
+runtime-version: '48'
+sdk: org.gnome.Sdk
+
+command: drop-app
+finish-args:
+  - --socket=wayland # Permission needed to show the window
+  - --socket=fallback-x11 # Permission needed to show the window
+  - --device=dri # OpenGL, not necessary for all projects
+  - --share=ipc
+  - --talk-name=org.kde.StatusNotifierWatcher # Optional: needed only if your app uses the tray icon
+  - --filesystem=xdg-run/tray-icon:create # Optional: needed only if your app uses the tray icon - see an alternative way below
+  # - --env=WEBKIT_DISABLE_COMPOSITING_MODE=1 # Optional: may solve some issues with black webviews on Wayland
+
+modules:
+  - name: binary
+    buildsystem: simple
+
+    sources:
+      # If you use GitHub releases, you can target an existing remote file
+      - type: file
+        url: https://github.com/Drop-OSS/drop-app/releases/download/v0.3.1-appimage/Drop.Desktop.Client_0.3.1-appimage_amd64.deb
+        sha256: 841cb3a1851d7761f70bc7bcf4738de28f27406ff633f85ddb60a60801047a32 # This is required if you are using a remote source
+        only-arches: [x86_64] 
+    build-commands:
+      - set -e
+      - ls
+
+      # Extract the deb package
+      - mkdir deb-extract
+      - ar -x *.deb --output deb-extract
+      - tar -C deb-extract -xf deb-extract/data.tar.gz
+
+      # Copy binary
+      - ls deb-extract
+      - ls deb-extract/usr
+      - ls deb-extract/usr/bin
+      - 'install -Dm755 deb-extract/usr/bin/drop-app /app/bin/drop-app'
+
+      # Copy desktop file + ensure the right icon is set
+      - cat deb-extract/usr/share/applications/Drop\ Desktop\ Client.desktop
+      - sed -i 's/^Icon=.*/Icon=org.droposs.app/' deb-extract/usr/share/applications/Drop\ Desktop\ Client.desktop
+      - install -Dm644 deb-extract/usr/share/applications/Drop\ Desktop\ Client.desktop /app/share/applications/Drop\ Desktop\ Client.desktop
+
+      # Copy icons
+      - install -Dm644 deb-extract/usr/share/icons/hicolor/128x128/apps/drop-app.png /app/share/icons/hicolor/128x128/apps/drop-app.png
+      - install -Dm644 deb-extract/usr/share/icons/hicolor/32x32/apps/drop-app.png /app/share/icons/hicolor/32x32/apps/drop-app.png
+      - install -Dm644 deb-extract/usr/share/icons/hicolor/256x256@2/apps/drop-app.png /app/share/icons/hicolor/256x256@2/apps/drop-app.png
+      - install -Dm644 flatpak.metainfo.xml /app/share/metainfo/drop-app.metainfo.xml
