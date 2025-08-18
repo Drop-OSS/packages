@@ -24,6 +24,8 @@ modules:
         url: https://github.com/Drop-OSS/drop-app/releases/download/v0.3.1-appimage/Drop.Desktop.Client_0.3.1-appimage_amd64.deb
         sha256: 841cb3a1851d7761f70bc7bcf4738de28f27406ff633f85ddb60a60801047a32 # This is required if you are using a remote source
         only-arches: [x86_64] 
+      - type: file
+        path: flatpak.metainfo.xml
     build-commands:
       - set -e
       - ls
@@ -42,10 +44,11 @@ modules:
       # Copy desktop file + ensure the right icon is set
       - cat deb-extract/usr/share/applications/Drop\ Desktop\ Client.desktop
       - sed -i 's/^Icon=.*/Icon=org.droposs.app/' deb-extract/usr/share/applications/Drop\ Desktop\ Client.desktop
-      - install -Dm644 deb-extract/usr/share/applications/Drop\ Desktop\ Client.desktop /app/share/applications/Drop\ Desktop\ Client.desktop
+      - install -Dm644 deb-extract/usr/share/applications/Drop\ Desktop\ Client.desktop /app/share/applications/Drop-Desktop-Client.desktop
 
       # Copy icons
-      - install -Dm644 deb-extract/usr/share/icons/hicolor/128x128/apps/drop-app.png /app/share/icons/hicolor/128x128/apps/drop-app.png
-      - install -Dm644 deb-extract/usr/share/icons/hicolor/32x32/apps/drop-app.png /app/share/icons/hicolor/32x32/apps/drop-app.png
-      - install -Dm644 deb-extract/usr/share/icons/hicolor/256x256@2/apps/drop-app.png /app/share/icons/hicolor/256x256@2/apps/drop-app.png
-      - install -Dm644 flatpak.metainfo.xml /app/share/metainfo/drop-app.metainfo.xml
+      - install -Dm644 deb-extract/usr/share/icons/hicolor/128x128/apps/drop-app.png /app/share/icons/hicolor/128x128/apps/org.droposs.app.png
+      - install -Dm644 deb-extract/usr/share/icons/hicolor/32x32/apps/drop-app.png /app/share/icons/hicolor/32x32/apps/org.droposs.app.png
+      - install -Dm644 deb-extract/usr/share/icons/hicolor/256x256@2/apps/drop-app.png /app/share/icons/hicolor/256x256@2/apps/org.droposs.app.png
+      - ls
+      - install -Dm644 flatpak.metainfo.xml /app/share/metainfo/org.droposs.app.metainfo.xml
