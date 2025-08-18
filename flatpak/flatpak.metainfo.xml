@@ -25,7 +25,7 @@
     </p>
   </description>
   
-  <launchable type="desktop-id">Drop-Desktop-Client.desktop</launchable>
+  <launchable type="desktop-id">org.droposs.app.desktop</launchable>
   <screenshots>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/Drop-OSS/media-sources/refs/heads/main/library_game_page.png</image>

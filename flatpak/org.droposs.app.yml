@@ -45,11 +45,12 @@ modules:
       # Copy desktop file + ensure the right icon is set
       - cat deb-extract/usr/share/applications/Drop\ Desktop\ Client.desktop
       - sed -i 's/^Icon=.*/Icon=org.droposs.app/' deb-extract/usr/share/applications/Drop\ Desktop\ Client.desktop
-      - install -Dm644 deb-extract/usr/share/applications/Drop\ Desktop\ Client.desktop /app/share/applications/Drop-Desktop-Client.desktop
 
       # Copy icons
       - install -Dm644 deb-extract/usr/share/icons/hicolor/128x128/apps/drop-app.png /app/share/icons/hicolor/128x128/apps/org.droposs.app.png
       - install -Dm644 deb-extract/usr/share/icons/hicolor/32x32/apps/drop-app.png /app/share/icons/hicolor/32x32/apps/org.droposs.app.png
       - install -Dm644 deb-extract/usr/share/icons/hicolor/256x256@2/apps/drop-app.png /app/share/icons/hicolor/256x256@2/apps/org.droposs.app.png
+      
+      - install -Dm644 deb-extract/usr/share/applications/Drop\ Desktop\ Client.desktop /app/share/applications/org.droposs.app.desktop
 
       - install -Dm644 flatpak.metainfo.xml /app/share/metainfo/org.droposs.app.metainfo.xml
