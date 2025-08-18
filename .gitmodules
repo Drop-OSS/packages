@@ -4,3 +4,6 @@
 [submodule "aur-app-bin"]
 	path = aur-app-bin
 	url = https://aur.archlinux.org/drop-oss-app-bin.git
+[submodule "flatpak/shared-modules"]
+	path = flatpak/shared-modules
+	url = https://github.com/flathub/shared-modules.git

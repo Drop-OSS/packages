@@ -15,7 +15,8 @@ finish-args:
   # - --env=WEBKIT_DISABLE_COMPOSITING_MODE=1 # Optional: may solve some issues with black webviews on Wayland
 
 modules:
-  - name: binary
+  - shared-modules/libappindicator/libappindicator-gtk3-12.10.json
+  - name: main
     buildsystem: simple
 
     sources:
@@ -50,5 +51,5 @@ modules:
       - install -Dm644 deb-extract/usr/share/icons/hicolor/128x128/apps/drop-app.png /app/share/icons/hicolor/128x128/apps/org.droposs.app.png
       - install -Dm644 deb-extract/usr/share/icons/hicolor/32x32/apps/drop-app.png /app/share/icons/hicolor/32x32/apps/org.droposs.app.png
       - install -Dm644 deb-extract/usr/share/icons/hicolor/256x256@2/apps/drop-app.png /app/share/icons/hicolor/256x256@2/apps/org.droposs.app.png
-      - ls
+
       - install -Dm644 flatpak.metainfo.xml /app/share/metainfo/org.droposs.app.metainfo.xml
