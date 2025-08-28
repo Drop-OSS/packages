@@ -1,3 +1,9 @@
 [submodule "flatpak/shared-modules"]
 	path = flatpak/shared-modules
 	url = https://github.com/flathub/shared-modules.git
+[submodule "drop-oss-app"]
+	path = drop-oss-app
+	url = https://aur.archlinux.org/drop-oss-app.git
+[submodule "drop-oss-app-bin"]
+	path = drop-oss-app-bin
+	url = https://aur.archlinux.org/drop-oss-app-bin.git
