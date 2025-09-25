@@ -7,3 +7,6 @@
 [submodule "drop-oss-app-bin"]
 	path = drop-oss-app-bin
 	url = https://aur.archlinux.org/drop-oss-app-bin.git
+[submodule "flathub-app-bin"]
+	path = flathub-app-bin
+	url = https://github.com/Drop-OSS/flathub-app-bin.git
