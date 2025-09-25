@@ -8,7 +8,7 @@ command: drop-app
 finish-args:
   - --share=ipc
   - --share=network
-  - --socket=x11
+  - --socket=fallback-x11
   - --socket=wayland
   - --socket=pulseaudio
   - --device=all
@@ -18,20 +18,16 @@ finish-args:
   - --talk-name=org.gnome.Mutter.DisplayConfig
   - --talk-name=org.freedesktop.ScreenSaver
   - --system-talk-name=org.freedesktop.UDisks2
-  - --filesystem=home
   - --filesystem=/run/media
   # For Steam Deck HDR support
   - --env=LD_LIBRARY_PATH=/usr/lib/extensions/vulkan/gamescope/lib
   - --filesystem=xdg-run/gamescope-0:ro
   # For Debian
   - --filesystem=/media
-  - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
   - --filesystem=~/.config/MangoHud:ro
+  - --filesystem=~/.var/app/org.droposs.app/data/
   - --env=PATH=/app/bin:/usr/bin:/app/utils/bin:/usr/lib/extensions/vulkan/MangoHud/bin/:/app/jre/bin/:/usr/lib/extensions/vulkan/gamescope/bin
   - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib32/gstreamer-1.0:/app/lib/gstreamer-1.0:/usr/lib/i386-linux-gnu/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0
-  # System tray icon
-  - --talk-name=org.kde.StatusNotifierWatcher
-  - --talk-name=org.freedesktop.Flatpak
   # Disable access to xdg-data/flatpak as it's causing a finish-args-unnecessary-xdg-data-access error.
   # Flatpak talk API might be enough but this might break features like Steam games detection.
   # - --filesystem=xdg-data/flatpak:ro
@@ -39,24 +35,18 @@ finish-args:
   - --env=APPIMAGE_EXTRACT_AND_RUN=1
   # See: https://github.com/flathub/net.lutris.Lutris/pull/368#issuecomment-1751381312
   - --env=WEBKIT_DISABLE_DMABUF_RENDERER=1
-  # --- umu ---
-  # Install the umu runtime at $HOST_XDG_DATA_HOME
-  # See: https://github.com/Open-Wine-Components/umu-launcher/pull/229
-  - --filesystem=xdg-data/umu:create
-  # Pressure Vessel
-  # See: https://github.com/flathub/com.valvesoftware.Steam/commit/0538256facdb0837c33232bc65a9195a8a5bc750
-  - --env=XDG_DATA_DIRS=/app/share:/usr/lib/extensions/vulkan/share:/usr/share:/usr/share/runtime/share:/run/host/user-share:/run/host/share:/usr/lib/pressure-vessel/overrides/share
-  - --allow=per-app-dev-shm
+  - --env=NO_TRAY_ICON=true
+
 modules:
-  - shared-modules/libappindicator/libappindicator-gtk3-12.10.json
+  - shared-modules/SDL/SDL-1.2.15.json
   - name: main
     buildsystem: simple
 
     sources:
       # If you use GitHub releases, you can target an existing remote file
       - type: file
-        url: https://github.com/Drop-OSS/drop-app/releases/download/v0.3.1-appimage/Drop.Desktop.Client_0.3.1-appimage_amd64.deb
-        sha256: 841cb3a1851d7761f70bc7bcf4738de28f27406ff633f85ddb60a60801047a32 # This is required if you are using a remote source
+        url: https://github.com/Drop-OSS/drop-app/releases/download/v0.3.3/Drop.Desktop.Client_0.3.3_amd64.deb
+        sha256: c3da6761db3c9bc0c04b3083377069f9417509cad6db81b6ef838b55d9f32242 # This is required if you are using a remote source
         only-arches: [x86_64] 
       - type: file
         path: flatpak.metainfo.xml
