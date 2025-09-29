@@ -1,4 +1,3 @@
-.flatpak-builder
-builddir
-repo
-drop-app/
+*
+!flatpak.metainfo.xml
+!org.droposs.app.yml
