@@ -10,3 +10,6 @@
 [submodule "flathub-app-bin"]
 	path = flathub-app-bin
 	url = https://github.com/Drop-OSS/flathub-app-bin.git
+[submodule "unraid"]
+	path = unraid
+	url = https://github.com/Drop-OSS/unraid.git
